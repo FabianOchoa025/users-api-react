@@ -1,64 +1,41 @@
 import React from "react";
 
-const UsersTable = ({ users }) => {
+const UsersTable = ({ users, onEdit, onDelete }) => {
   return (
-    <div style={containerStyle}>
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={thStyle}>ID</th>
-            <th style={thStyle}>Nombre</th>
-            <th style={thStyle}>Email</th>
+    <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <thead>
+        <tr style={{ borderBottom: "2px solid #444" }}>
+          <th style={{ padding: "10px", textAlign: "left" }}>ID</th>
+          <th style={{ padding: "10px", textAlign: "left" }}>Nombre</th>
+          <th style={{ padding: "10px", textAlign: "left" }}>Correo</th>
+          <th style={{ padding: "10px", textAlign: "center" }}>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.id} style={{ borderBottom: "1px solid #333" }}>
+            <td style={{ padding: "10px" }}>{user.id}</td>
+            <td style={{ padding: "10px" }}>{user.name}</td>
+            <td style={{ padding: "10px" }}>{user.email}</td>
+            <td style={{ padding: "10px", textAlign: "center" }}>
+              <button
+                onClick={() => onEdit(user)}
+                style={{ marginRight: "10px", padding: "5px 10px", borderRadius: "5px", border: "none", background: "#ffa500", color: "#fff", cursor: "pointer" }}
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => onDelete(user.id)}
+                style={{ padding: "5px 10px", borderRadius: "5px", border: "none", background: "#e01f1f", color: "#fff", cursor: "pointer" }}
+              >
+                Borrar
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id} style={trStyle}>
-              <td style={tdStyle}>{user.id}</td>
-              <td style={tdStyle}>{user.name}</td>
-              <td style={tdStyle}>{user.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
-};
-
-
-const containerStyle = {
-  display: "flex",
-  justifyContent: "center",
-  marginTop: "40px",
-  overflowX: "auto",
-};
-
-const tableStyle = {
-  borderCollapse: "collapse",
-  width: "80%",
-  minWidth: "400px",
-  backgroundColor: "#1e1e2f",
-  color: "#ffffff",
-  borderRadius: "8px",
-  overflow: "hidden",
-  boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
-};
-
-const thStyle = {
-  padding: "12px",
-  textAlign: "left",
-  backgroundColor: "#27293d",
-  color: "#ffffff",
-  fontWeight: "bold",
-};
-
-const tdStyle = {
-  padding: "12px",
-  borderBottom: "1px solid #333",
-};
-
-const trStyle = {
-  transition: "background 0.3s",
 };
 
 export default UsersTable;
